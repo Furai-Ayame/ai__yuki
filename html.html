@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>雪チャット</title>
+<style>
+body { font-family: Arial; background: #f0f0f0; }
+#chat-container { width: 400px; margin: 50px auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2);}
+#messages { height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; display: flex; flex-direction: column; }
+.message { margin: 5px 0; padding: 5px 10px; border-radius: 10px; max-width: 80%; background: #fff; border: 1px solid #ccc; }
+#input-area { display: flex; }
+#message-input { flex: 1; padding: 5px; }
+#send-btn { padding: 5px 10px; }
+</style>
+</head>
+<body>
+<div id="chat-container">
+    <div id="messages"></div>
+    <div id="input-area">
+        <input type="text" id="message-input" placeholder="メッセージを入力">
+        <button id="send-btn">送信</button>
+    </div>
+</div>
+
+<script>
+const messages = document.getElementById("messages");
+const input = document.getElementById("message-input");
+const button = document.getElementById("send-btn");
+
+// 最初に表示したい会話（任意）
+const initialChat = [
+    "対話者: おはよう",
+    "雪: おはようございます"
+];
+
+// 初期メッセージ表示
+window.addEventListener("DOMContentLoaded", () => {
+    initialChat.forEach(msg => addMessage(msg));
+});
+
+function addMessage(text) {
+    const div = document.createElement("div");
+    div.classList.add("message");
+    div.textContent = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+// 送信ボタン
+button.addEventListener("click", sendMessage);
+
+// Enterキー
+input.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+        e.preventDefault(); // フォーム送信を止める
+        sendMessage();
+    }
+});
+
+async function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
+
+    addMessage("対話者: " + text);
+    input.value = "";
+
+    try {
+        const response = await fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: text })
+        });
+        const data = await response.json();
+        addMessage(data.reply);
+    } catch (err) {
+        addMessage("エラー: 送信不可");
+    }
+}
+</script>
+</body>
+</html>
