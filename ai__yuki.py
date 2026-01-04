@@ -2,9 +2,12 @@
 import os
 import random
 import time
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
-log_file_path = "ai__yuki_log.txt"  #ログ保存先
+JST = timezone(timedelta(hours=+9), 'JST')
+timestamp = datetime.now(JST).strftime("%Y/%m/%d %H:%M:%S")
+
+log_file_path = "ai__yuki_log.txt"  
 
 def yuki_reply(user_input, memory):
     user_input = user_input.strip()

@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 import time
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
+
+JST = timezone(timedelta(hours=+9), 'JST')
+timestamp = datetime.now(JST).strftime("%Y/%m/%d %H:%M:%S")
 
 appp = Flask(__name__)
 
