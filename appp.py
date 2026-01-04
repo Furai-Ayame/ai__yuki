@@ -6,7 +6,7 @@ appp = Flask(__name__)
 
 memory = {}
 
-log_file_path = "C:/Users/inari/OneDrive/ai__yuki.py会話ログ1/yuki.01.chat_log.txt"
+log_file_path = "ai__yuki.py会話ログ1/yuki.01.chat_log.txt"
 
 def yuki_reply(user_input, memory):
     user_input = user_input.strip().replace("。", "").replace("？", "?") 
@@ -65,4 +65,6 @@ def chat():
     return jsonify({"reply": bot_message})
 
 if __name__ == "__main__":
-    appp.run(debug=True, host="0.0.0.0", port=5000)
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    appp.run(host="0.0.0.0", port=port)
