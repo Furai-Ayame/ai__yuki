@@ -4,7 +4,6 @@ import random
 import time
 from datetime import datetime, timedelta, timezone
 JST = timezone(timedelta(hours=+9), 'JST')
-timestamp = datetime.now(JST).strftime("%Y/%m/%d %H:%M:%S")
 
 log_file_path = "ai__yuki_log.txt"  
 
@@ -15,7 +14,7 @@ def yuki_reply(user_input, memory):
 
     now = datetime.now()
     now_ts = time.time()
-    timestamp = time.strftime("%Y-%m-%d-%H-%M-%S")
+    timestamp = datetime.now(JST).strftime("%Y/%m/%d %H:%M:%S")
     
     name = memory.get("name")
     last_talk_time = memory.get("last_time", 0)
@@ -51,7 +50,7 @@ def yuki_reply(user_input, memory):
             reply = "雪:こんにちは"
 
         elif "時間" in user_input or "何時" in user_input:
-            reply = f"雪:今は {now.year}年{now.month}月{now.day}日 {now.hour}時{now.minute}分{now.second}秒 です。"
+            reply = f"雪:今は {now.year}年{now.month}月{now.day}日 {now.hour + 9}時{now.minute}分{now.second}秒 です。"
 
         elif user_input == "おやすみ":
             reply = "雪:おやすみなさい"
@@ -66,5 +65,5 @@ def yuki_reply(user_input, memory):
     return reply
 
 def ask_external(prompt):
-    timestamp = time.strftime("%Y-%m-%d-%H-%M-%S")
+    timestamp = datetime.now(JST).strftime("%Y/%m/%d %H:%M:%S")
     return f"[{timestamp}]雪:こんにちは"

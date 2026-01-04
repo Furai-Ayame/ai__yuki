@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, jsonify
 import time
 from datetime import datetime, timedelta, timezone
 JST = timezone(timedelta(hours=+9), 'JST')
-timestamp = datetime.now(JST).strftime("%Y/%m/%d %H:%M:%S")
 
 appp = Flask(__name__)
 
@@ -14,7 +13,7 @@ def yuki_reply(user_input, memory):
     user_input = user_input.strip().replace("。", "").replace("？", "?") 
     now = datetime.now()
     now_ts = time.time()
-    timestamp = time.strftime("%Y-%m-%d-%H-%M-%S")
+    timestamp = datetime.now(JST).strftime("%Y/%m/%d %H:%M:%S")
 
     name = memory.get("name")
     last_talk_time = memory.get("last_time", 0)
@@ -39,7 +38,7 @@ def yuki_reply(user_input, memory):
 
         
         elif "時間" in user_input or "何時" in user_input:
-            reply = f"雪:今は {now.year}年{now.month}月{now.day}日 {now.hour}時{now.minute}分{now.second}秒 です。"
+            reply = f"雪:今は {now.year}年{now.month}月{now.day}日 {now.hour + 9}時{now.minute}分{now.second}秒 です。"
 
         elif user_input == "おやすみ":
             reply = "雪:おやすみなさい"
