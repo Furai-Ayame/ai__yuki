@@ -6,7 +6,7 @@ appp = Flask(__name__)
 
 memory = {}
 
-log_file_path = "ai__yuki.py会話ログ1/yuki.01.chat_log.txt"
+log_file_path = "ai__yuki_log.txt"
 
 def yuki_reply(user_input, memory):
     user_input = user_input.strip().replace("。", "").replace("？", "?") 

@@ -4,7 +4,7 @@ import random
 import time
 from datetime import datetime
 
-log_file_path = "ai__yuki.py会話ログ1/yuki.01.chat_log.txt"  #ログ保存先
+log_file_path = "ai__yuki_log.txt"  #ログ保存先
 
 def yuki_reply(user_input, memory):
     user_input = user_input.strip()
