@@ -3,7 +3,6 @@ import os
 import random
 import time
 from datetime import datetime, timedelta, timezone
-
 JST = timezone(timedelta(hours=+9), 'JST')
 timestamp = datetime.now(JST).strftime("%Y/%m/%d %H:%M:%S")
 
